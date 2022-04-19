@@ -6,8 +6,11 @@ import 'package:food_delivery_app/Widgets/big_text.dart';
 import 'package:food_delivery_app/Widgets/expandable_text.dart';
 import 'package:food_delivery_app/Widgets/icon_and%20_text-widget.dart';
 import 'package:food_delivery_app/Widgets/small_text.dart';
+import 'package:food_delivery_app/pages/home/main_food_page.dart';
+import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/colors.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:get/get.dart';
 
 class PopularFoodDetails extends StatelessWidget {
   const PopularFoodDetails({Key? key}) : super(key: key);
@@ -42,7 +45,12 @@ class PopularFoodDetails extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(icon: Icons.arrow_back_ios),
+                  GestureDetector(
+                    onTap:(){
+                      Get.toNamed(RouteHelper.initial);
+                  },
+                      child:
+                      AppIcon(icon: Icons.arrow_back_ios)),
 
                   AppIcon(icon: Icons.shopping_cart_outlined)
 
