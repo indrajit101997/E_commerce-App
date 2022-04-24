@@ -6,17 +6,26 @@ import 'package:food_delivery_app/Widgets/big_text.dart';
 import 'package:food_delivery_app/Widgets/expandable_text.dart';
 import 'package:food_delivery_app/Widgets/icon_and%20_text-widget.dart';
 import 'package:food_delivery_app/Widgets/small_text.dart';
+import 'package:food_delivery_app/controllers/cart_controller.dart';
+import 'package:food_delivery_app/controllers/popular_product_controller.dart';
 import 'package:food_delivery_app/pages/home/main_food_page.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
+import 'package:food_delivery_app/utils/app_constants.dart';
 import 'package:food_delivery_app/utils/colors.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:get/get.dart';
 
 class PopularFoodDetails extends StatelessWidget {
-  const PopularFoodDetails({Key? key}) : super(key: key);
+  int pageId;
+   PopularFoodDetails({Key? key,required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product=Get.find<PopularProductController>().popularProductList[pageId];
+    Get.find<PopularProductController>().initProduct(product,Get.find<CartController>());
+
+    //print ("page is id "+pageId.toString());
+    // print("product name is "+product.name);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -31,9 +40,9 @@ class PopularFoodDetails extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage(
-                          "assets/images/spaghetti.jpg"
-                      ),
+                      image: NetworkImage(
+                        AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.img!
+                      )
                     )
                   ),
               )),
@@ -80,24 +89,13 @@ class PopularFoodDetails extends StatelessWidget {
                  child:Column(
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
-                     AppColumn(text: "Indias Side",),
+                     AppColumn(text: product.name!,),
                      SizedBox(height: Dimensions.height20,),
                      BigText(text: "Introduce"),
                      SizedBox(height: Dimensions.height20,),
                      Expanded(child:SingleChildScrollView(
                          child: ExpandableText(
-                             text:
-                             "There are several main types of biryani that are specific to certain communities. Each variety is named after the place it was created."
-                             "Sindhi biryani: This aromatic type of biryani is popular in Pakistan and known for its spicy taste, fragrant rice, and delicate meat. It is made with meat and basmati rice, vegetables, and various types of spices. Hyderabadi biryani: This biryani is one of India's most popular types of biryani. It incorporates goat meat that is marinated and cooked along with the rice and is seasoned with coconut and saffron"
-                                 "Malabar Biriyani: This is the only version of biryani in Kerala, an Indian state. It is a popular dish eaten by the Malabar Muslim community and incorporates Khyma rice mixed with ghee."
-                                  "Calcutta/Kolkata biryani: This biryani mostly uses potatoes and eggs and only sometimes contains meat. It is much lighter spice-wise; the marinade is made of cinnamon, nutmeg, cloves, cardamom, and other spices, and the rice is flavored with ketaki or rose water and is yellow in color."
-                         "Ambur biryani: This leather-tanning city in Tamil Nadu makes one of the most famous types of biryani, and the town has more biryani shops than any other city in the world. The meat and rice are cooked separately and then brought together, along with mint leaves and curd."
-                         "Lucknowi biryani: This type of biryani is based on a Persian cooking style so it uses the dum pukht method where the meat and gravy are only cooked partially and are then layered and served in a sealed handi. The spice profile is not as intense."
-                         "Mughlai biryani: This biryani is cooked with curd, chicken, almond paste, ghee, dry fruits, and green chilies, and has a rich flavor."
-                         "Kalyani biryani: Small chunks of buffalo meat go into this more budget-friendly biryani. It is rich and flavorful but does not include more expensive ingredients."
-                         )
-                     )
-                     ),
+                             text:product.description!)))
                    ],
                  )
               )),
@@ -105,48 +103,63 @@ class PopularFoodDetails extends StatelessWidget {
 
         ],
       ),
-      bottomNavigationBar: Container(
-        height:Dimensions.bottomHeightBar ,
-        padding: EdgeInsets.only(top:Dimensions.height30 ,bottom:Dimensions.height30 ,left:Dimensions.width20 ,right:Dimensions.width20 ),
-        decoration: BoxDecoration(
-          color: AppColors.buttonBackhroundColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(Dimensions.radius20*2),
-            topRight: Radius.circular(Dimensions.radius20*2)
-          )
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              padding: EdgeInsets.only(top:Dimensions.height20,bottom: Dimensions.height20,left: Dimensions.width20,right: Dimensions.width20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius20),
-                color: Colors.white,
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.remove, color:AppColors.signColor),
-                  SizedBox(width: Dimensions.width10/2,),
-                  BigText(text: "0"),
-                  SizedBox(width: Dimensions.width10/2,),
-                  Icon(Icons.add, color:AppColors.signColor),
-
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top:Dimensions.height20,bottom: Dimensions.height20,left: Dimensions.width20,right: Dimensions.width20),
-              child:BigText(text: "\$10 | Add to cart", color: Colors.white,),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius20),
-                color:AppColors.mainColor,
-              ),
-
+      bottomNavigationBar: GetBuilder<PopularProductController>(
+        builder:(popularProduct){
+        return  Container(
+          height:Dimensions.bottomHeightBar ,
+          padding: EdgeInsets.only(top:Dimensions.height30 ,bottom:Dimensions.height30 ,left:Dimensions.width20 ,right:Dimensions.width20 ),
+          decoration: BoxDecoration(
+            color: AppColors.buttonBackhroundColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(Dimensions.radius20*2),
+              topRight: Radius.circular(Dimensions.radius20*2)
             )
-          ],
-        ),
-      ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: EdgeInsets.only(top:Dimensions.height20,bottom: Dimensions.height20,left: Dimensions.width20,right: Dimensions.width20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                  color: Colors.white,
+                ),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                        onTap: (){
+                          popularProduct.setQuantity(false);
+                        },
+                        child: Icon(Icons.remove, color:AppColors.signColor)),
+                    SizedBox(width: Dimensions.width10/2,),
+                    BigText(text: popularProduct.inCartItems.toString()),
+                    SizedBox(width: Dimensions.width10/2,),
+                    GestureDetector(
+                      onTap: (){
+                        popularProduct.setQuantity(true);
+                      },
+                        child: Icon(Icons.add, color:AppColors.signColor)),
+
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top:Dimensions.height20,bottom: Dimensions.height20,left: Dimensions.width20,right: Dimensions.width20),
+                child:GestureDetector(
+                  onTap: (){
+                    popularProduct.addItem((product));
+                  },
+                    child: BigText(text: "\$ ${product.price!} | Add to cart", color: Colors.white,)),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                  color:AppColors.mainColor,
+                ),
+
+              )
+            ],
+          ),
+        );
+      },),
     );
   }
 }

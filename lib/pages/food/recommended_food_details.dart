@@ -3,16 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Widgets/app_icon.dart';
 import 'package:food_delivery_app/Widgets/big_text.dart';
 import 'package:food_delivery_app/Widgets/expandable_text.dart';
+import 'package:food_delivery_app/controllers/recommended_controller.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
+import 'package:food_delivery_app/utils/app_constants.dart';
 import 'package:food_delivery_app/utils/colors.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:get/get.dart';
 
 class RecommendedFoodDetails extends StatelessWidget {
-  const RecommendedFoodDetails({Key? key}) : super(key: key);
+  final int pageId;
+
+   RecommendedFoodDetails({Key? key,required this.pageId }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product =Get.find<RecommendedProductController>().recommendedProductList[pageId];
+
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
@@ -24,9 +31,9 @@ class RecommendedFoodDetails extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                  GestureDetector(
-                   onTap:(){
-                     Get.toNamed(RouteHelper.initial);
-                   },
+                     onTap:(){
+                       Get.toNamed(RouteHelper.getInitial());
+                     },
                      child: AppIcon(icon: Icons.clear)),
                  AppIcon(icon: Icons.shopping_cart_outlined)
                ],
@@ -37,7 +44,7 @@ class RecommendedFoodDetails extends StatelessWidget {
 
                  child: Center(child: BigText(
                    size:Dimensions.font26,
-                   text: "India Sides",
+                   text: product.name!,
                  )),
                  width: double.maxFinite,
                  padding: EdgeInsets.only(top: 5,bottom: 10),
@@ -56,8 +63,8 @@ class RecommendedFoodDetails extends StatelessWidget {
 
 
              flexibleSpace: FlexibleSpaceBar(
-               background: Image.asset(
-                 "assets/images/spaghetti.jpg",
+               background: Image.network(
+                 AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.img!,
                  width:double.maxFinite,
                  fit: BoxFit.cover,
                ),
@@ -66,7 +73,7 @@ class RecommendedFoodDetails extends StatelessWidget {
             SliverToBoxAdapter(
               child:Container(
                 margin: EdgeInsets.only(left: Dimensions.width20,right: Dimensions.width20),
-                child: ExpandableText(text:"There are several main types of biryani that are specific to certain communities. Each variety is named after the place it was created.Sindhi biryani: This aromatic type of biryani is popular in Pakistan and known for its spicy taste, fragrant rice, and delicate meat. It is made with meat and basmati rice, vegetables, and various types of spices. Hyderabadi biryani: This biryani is one of India's most popular types of biryani. It incorporates goat meat that is marinated and cooked along with the rice and is seasoned with coconut and saffronMalabar Biriyani: This is the only version of biryani in Kerala, an Indian state. It is a popular dish eaten by the Malabar Muslim community and incorporates Khyma rice mixed with ghee.Calcutta/Kolkata biryani: This biryani mostly uses potatoes and eggs and only sometimes contains meat. It is much lighter spice-wise; the marinade is made of cinnamon, nutmeg, cloves, cardamom, and other spices, and the rice is flavored with ketaki or rose water and is yellow in color.Ambur biryani: This leather-tanning city in Tamil Nadu makes one of the most famous types of biryani, and the town has more biryani shops than any other city in the world. The meat and rice are cooked separately and then brought together, along with mint leaves and curd.Lucknowi biryani: This type of biryani is based on a Persian cooking style so it uses the dum pukht method where the meat and gravy are only cooked partially and are then layered and served in a sealed handi. The spice profile is not as intense.Mughlai biryani: This biryani is cooked with curd, chicken, almond paste, ghee, dry fruits, and green chilies, and has a rich flavor.Kalyani biryani: Small chunks of buffalo meat go into this more budget-friendly biryani. It is rich and flavorful but does not include more expensive ingredients There are several main types of biryani that are specific to certain communities. Each variety is named after the place it was created.Sindhi biryani: This aromatic type of biryani is popular in Pakistan and known for its spicy taste, fragrant rice, and delicate meat. It is made with meat and basmati rice, vegetables, and various types of spices. Hyderabadi biryani: This biryani is one of India's most popular types of biryani. It incorporates goat meat that is marinated and cooked along with the rice and is seasoned with coconut and saffronMalabar Biriyani: This is the only version of biryani in Kerala, an Indian state. It is a popular dish eaten by the Malabar Muslim community and incorporates Khyma rice mixed with ghee.Calcutta/Kolkata biryani: This biryani mostly uses potatoes and eggs and only sometimes contains meat. It is much lighter spice-wise; the marinade is made of cinnamon, nutmeg, cloves, cardamom, and other spices, and the rice is flavored with ketaki or rose water and is yellow in color.Ambur biryani: This leather-tanning city in Tamil Nadu makes one of the most famous types of biryani, and the town has more biryani shops than any other city in the world. The meat and rice are cooked separately and then brought together, along with mint leaves and curd.Lucknowi biryani: This type of biryani is based on a Persian cooking style so it uses the dum pukht method where the meat and gravy are only cooked partially and are then layered and served in a sealed handi. The spice profile is not as intense.Mughlai biryani: This biryani is cooked with curd, chicken, almond paste, ghee, dry fruits, and green chilies, and has a rich flavor.Kalyani biryani: Small chunks of buffalo meat go into this more budget-friendly biryani. It is rich and flavorful but does not include more expensive ingredients There are several main types of biryani that are specific to certain communities. Each variety is named after the place it was created.Sindhi biryani: This aromatic type of biryani is popular in Pakistan and known for its spicy taste, fragrant rice, and delicate meat. It is made with meat and basmati rice, vegetables, and various types of spices. Hyderabadi biryani: This biryani is one of India's most popular types of biryani. It incorporates goat meat that is marinated and cooked along with the rice and is seasoned with coconut and saffronMalabar Biriyani: This is the only version of biryani in Kerala, an Indian state. It is a popular dish eaten by the Malabar Muslim community and incorporates Khyma rice mixed with ghee.Calcutta/Kolkata biryani: This biryani mostly uses potatoes and eggs and only sometimes contains meat. It is much lighter spice-wise; the marinade is made of cinnamon, nutmeg, cloves, cardamom, and other spices, and the rice is flavored with ketaki or rose water and is yellow in color.Ambur biryani: This leather-tanning city in Tamil Nadu makes one of the most famous types of biryani, and the town has more biryani shops than any other city in the world. The meat and rice are cooked separately and then brought together, along with mint leaves and curd.Lucknowi biryani: This type of biryani is based on a Persian cooking style so it uses the dum pukht method where the meat and gravy are only cooked partially and are then layered and served in a sealed handi. The spice profile is not as intense.Mughlai biryani: This biryani is cooked with curd, chicken, almond paste, ghee, dry fruits, and green chilies, and has a rich flavor.Kalyani biryani: Small chunks of buffalo meat go into this more budget-friendly biryani. It is rich and flavorful but does not include more expensive ingredients There are several main types of biryani that are specific to certain communities. Each variety is named after the place it was created.Sindhi biryani: This aromatic type of biryani is popular in Pakistan and known for its spicy taste, fragrant rice, and delicate meat. It is made with meat and basmati rice, vegetables, and various types of spices. Hyderabadi biryani: This biryani is one of India's most popular types of biryani. It incorporates goat meat that is marinated and cooked along with the rice and is seasoned with coconut and saffronMalabar Biriyani: This is the only version of biryani in Kerala, an Indian state. It is a popular dish eaten by the Malabar Muslim community and incorporates Khyma rice mixed with ghee.Calcutta/Kolkata biryani: This biryani mostly uses potatoes and eggs and only sometimes contains meat. It is much lighter spice-wise; the marinade is made of cinnamon, nutmeg, cloves, cardamom, and other spices, and the rice is flavored with ketaki or rose water and is yellow in color.Ambur biryani: This leather-tanning city in Tamil Nadu makes one of the most famous types of biryani, and the town has more biryani shops than any other city in the world. The meat and rice are cooked separately and then brought together, along with mint leaves and curd.Lucknowi biryani: This type of biryani is based on a Persian cooking style so it uses the dum pukht method where the meat and gravy are only cooked partially and are then layered and served in a sealed handi. The spice profile is not as intense.Mughlai biryani: This biryani is cooked with curd, chicken, almond paste, ghee, dry fruits, and green chilies, and has a rich flavor.Kalyani biryani: Small chunks of buffalo meat go into this more budget-friendly biryani. It is rich and flavorful but does not include more expensive ingredients"
+                child: ExpandableText(text: product.description!
                    ),
               )
           )
@@ -91,7 +98,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                     icon: Icons.remove,
                     iconSize: Dimensions.iconSize24,
                 ),
-                BigText(text: "\$12.88 "+" X "+"  0 ",color: AppColors.mainBlackColor,size: Dimensions.font26,),
+                BigText(text: "\$ ${product.price!}  "+" X "+"  0 ",color: AppColors.mainBlackColor,size: Dimensions.font26,),
                 AppIcon(
                     iconColor: Colors.white,
                     backgroundColor:AppColors.mainColor,
@@ -129,7 +136,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.only(top:Dimensions.height20,bottom: Dimensions.height20,left: Dimensions.width20,right: Dimensions.width20),
-                  child:BigText(text: "\$10 | Add to cart", color: Colors.white,),
+                  child:BigText(text: "\$ ${product.price!} | Add to cart", color: Colors.white,),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(Dimensions.radius20),
                     color:AppColors.mainColor,
