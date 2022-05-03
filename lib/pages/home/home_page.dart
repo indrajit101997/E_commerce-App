@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/pages/cart/cart_history.dart';
 import 'package:food_delivery_app/pages/home/main_food_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
    List pages=[
      MainFoodPage(),
      Container(child: Center(child: Text("next page"))),
-     Container(child: Center(child: Text("next next page"))),
+     CartHistory(),
      Container(child: Center(child: Text("next next next page"))),
    ];
 
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
     ];
   }*/
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[_selectedIndex],
@@ -145,6 +146,4 @@ class _HomePageState extends State<HomePage> {
       navBarStyle: NavBarStyle.style5, // Choose the nav bar style with this property.
     );
   }*/
-
-
 }
